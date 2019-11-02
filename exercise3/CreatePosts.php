@@ -27,16 +27,18 @@
         $userExists = true;
       }
     }
+    if(!$userExists){
+      echo "The post was not written by an existing user <br>";
+    }
+    else{
+      echo "The post was saved successfully <br>";
+    }
     $result->free();
   }
 
-  if(!$userExists){
-    echo "The post was not written by an existing user <br>";
-  }
-  else{
-    echo "The post was saved successfully <br>";
-  }
-
   echo "Connected successfully";
+  echo "<form action='https://people.eecs.ku.edu/~v473p289/eecs448-lab05/AdminHome.html'>";
+  echo "<input type='submit' value='Go to AdminHome' style='font-weight: bold; color: white; background-color: black; cursor: default;'/>";
+  echo "</form>";
   $mysqli->close();
 ?>

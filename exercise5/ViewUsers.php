@@ -25,5 +25,8 @@
     $result->free();
   }
   echo "</table>";
+  echo "<form action='https://people.eecs.ku.edu/~v473p289/eecs448-lab05/AdminHome.html' style='text-align: center'>";
+  echo "<input type='submit' value='Go to AdminHome' style='font-weight: bold; color: white; background-color: black; cursor: default;'/>";
+  echo "</form>";
   $mysqli->close();
  ?>
