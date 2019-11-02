@@ -7,7 +7,7 @@
 
   $username = $_POST["username"];
   $post = $_POST["post"];
-  $userExists = false;
+  $userExists = true;
 
   if($mysqli->connect_error){
     printf("Connection failed: " . $mysqli->connect_error);
@@ -19,20 +19,22 @@
   if($result = $mysqli->query($query)){
     while ($row = $result->fetch_assoc()){
       if($username != $row["user_id"]){
-        $post = "";
-        $userExists = true;
+        $userExists = false;
       }
       else{
         $insert = "INSERT INTO Posts (content,author_id) VALUES ('$post','$username')";
         $mysqli->query($insert);
-        echo "The post was saved successfully <br>";
+        $userExists = true;
       }
     }
     $result->free();
   }
 
-  if($userExists){
+  if(!$userExists){
     echo "The post was not written by an existing user <br>";
+  }
+  else{
+    echo "The post was saved successfully <br>";
   }
 
   echo "Connected successfully";
