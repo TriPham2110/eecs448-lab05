@@ -1,4 +1,4 @@
-<!--Reference https://wiki.ittc.ku.edu/ittc_wiki/index.php/EECS448:Lab5-->
+<!--Reference https://www.php.net/manual/en/function.empty.php-->
 <?php
   error_reporting(E_ALL);
   ini_set("display_errors", 1);
@@ -14,29 +14,24 @@
     exit();
   }
 
-  $query = "SELECT user_id FROM Users";
-
-  if($result = $mysqli->query($query)){
-    while ($row = $result->fetch_assoc()){
-      if($username != $row["user_id"]){
-        $userExists = false;
-      }
-      else{
+  if(empty($post)){
+    echo "Post needs to have text";
+  }
+  else{
+    $query = "SELECT user_id FROM Users WHERE user_id='$username'";
+    if($result = $mysqli->query($query)){
+      if($row = $result->fetch_assoc()){
         $insert = "INSERT INTO Posts (content,author_id) VALUES ('$post','$username')";
         $mysqli->query($insert);
-        $userExists = true;
+        echo "The post was saved successfully <br>";
       }
-    }
-    if(!$userExists){
-      echo "The post was not written by an existing user <br>";
-    }
-    else{
-      echo "The post was saved successfully <br>";
+      else{
+        echo "The post was not written by an existing user <br>";
+      }
     }
     $result->free();
   }
 
-  echo "Connected successfully";
   echo "<form action='https://people.eecs.ku.edu/~v473p289/eecs448-lab05/AdminHome.html'>";
   echo "<input type='submit' value='Go to AdminHome' style='font-weight: bold; color: white; background-color: black; cursor: default;'/>";
   echo "</form>";
